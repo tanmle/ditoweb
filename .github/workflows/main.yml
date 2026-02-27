@@ -3,7 +3,7 @@ name: Build and Deploy to Firebase
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -40,16 +40,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
+          cache: yarn
 
       - name: Install Root Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Build Web App
-        run: npm run build
+        run: yarn build
 
       - name: Install Function Dependencies
-        run: npm --prefix functions ci
+        run: yarn --cwd functions install --frozen-lockfile
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v13.22.1
