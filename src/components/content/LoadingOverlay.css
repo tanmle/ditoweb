@@ -1,0 +1,70 @@
+.main-fader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(107, 114, 128, 0.75); /* similar to Tailwind's bg-gray-500/75 */
+  z-index: 9999;
+  pointer-events: all;
+  animation: fadeIn 0.3s ease-in-out 0.3s;
+}
+
+/* You already have this part for the loader */
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Optional: smooth fade-in */
+.main-fader {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.loader svg {
+  height: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+.loader svg path {
+  fill: #1d4ed8;
+  animation-duration: 1s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  color: rgb(26 86 219 / 1);
+}
+
+.loader svg .path-9 { animation-delay: -1s; }
+.loader svg .path-8 { animation-delay: -0.875s; }
+.loader svg .path-7 { animation-delay: -0.75s; }
+.loader svg .path-6 { animation-delay: -0.625s; }
+.loader svg .path-5 { animation-delay: -0.5s; }
+.loader svg .path-4 { animation-delay: -0.375s; }
+.loader svg .path-3 { animation-delay: -0.25s; }
+.loader svg .path-2 { animation-delay: -0.125s; }
+.loader svg .path-1 { animation-delay: 0s; }
+.loader svg .path-0 { animation-delay: 0.125s; }
+
+@keyframes pulse {
+  0% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

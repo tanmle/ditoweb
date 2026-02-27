@@ -1,0 +1,59 @@
+name: Build and Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_apiKey: ${{ vars.NEXT_PUBLIC_apiKey }}
+      NEXT_PUBLIC_authDomain: ${{ vars.NEXT_PUBLIC_authDomain }}
+      NEXT_PUBLIC_databaseURL: ${{ vars.NEXT_PUBLIC_databaseURL }}
+      NEXT_PUBLIC_projectId: ${{ vars.NEXT_PUBLIC_projectId }}
+      NEXT_PUBLIC_storageBucket: ${{ vars.NEXT_PUBLIC_storageBucket }}
+      NEXT_PUBLIC_messagingSenderId: ${{ vars.NEXT_PUBLIC_messagingSenderId }}
+      NEXT_PUBLIC_appId: ${{ vars.NEXT_PUBLIC_appId }}
+      NEXT_PUBLIC_measurementId: ${{ vars.NEXT_PUBLIC_measurementId }}
+      NEXT_PUBLIC_BACKEND_URL: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
+
+      # Backward compatibility for legacy code paths
+      REACT_APP_apiKey: ${{ vars.REACT_APP_apiKey }}
+      REACT_APP_authDomain: ${{ vars.REACT_APP_authDomain }}
+      REACT_APP_databaseURL: ${{ vars.REACT_APP_databaseURL }}
+      REACT_APP_projectId: ${{ vars.REACT_APP_projectId }}
+      REACT_APP_storageBucket: ${{ vars.REACT_APP_storageBucket }}
+      REACT_APP_messagingSenderId: ${{ vars.REACT_APP_messagingSenderId }}
+      REACT_APP_appId: ${{ vars.REACT_APP_appId }}
+      REACT_APP_measurementId: ${{ vars.REACT_APP_measurementId }}
+      REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Root Dependencies
+        run: npm ci
+
+      - name: Build Web App
+        run: npm run build
+
+      - name: Install Function Dependencies
+        run: npm --prefix functions ci
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@v13.22.1
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

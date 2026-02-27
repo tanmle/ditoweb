@@ -1,0 +1,10 @@
+export const LOGIN = '/login';
+export const MAIN = '/main';
+export const MATCH = MAIN + '/match'; 
+export const PLAYER_MNG = MAIN + '/playermng'; 
+export const SIGNUP ='/signup'
+export const MATCH_SETTINGS = MAIN + '/matchsettings'
+export const PENANTIES = MAIN + '/penanties'
+export const FINANCE = MAIN + '/finance'
+export const USER_DETAILS = MAIN + '/userdetails'
+export const ROOT = '/'

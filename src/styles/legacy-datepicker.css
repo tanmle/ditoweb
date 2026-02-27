@@ -1,0 +1,10 @@
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  display: inline-flex;
+  width: auto;
+  vertical-align: middle;
+}
+
+.controls-inline .react-datepicker-wrapper {
+  margin-right: 0.5rem;
+}
